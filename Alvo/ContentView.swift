@@ -17,18 +17,11 @@ struct ContentView: View {
     
     func calcPointsLost() {
         var PointsLostPerMove = 0
-        
-        if target >= Int(sliderNumber) {
-            PointsLostPerMove = target - Int(sliderNumber)
-        }
-        else {
-            PointsLostPerMove = (target - Int(sliderNumber)) * (-1)
-        }
-        
+        PointsLostPerMove = abs((target - Int(sliderNumber)))
         pointsLost = pointsLost + PointsLostPerMove
     }
     
-    func wonorLost() -> Bool {
+    func wonOrLost() -> Bool {
         if target == Int(sliderNumber) {
             return true
         }
@@ -38,9 +31,8 @@ struct ContentView: View {
     func updateTarget() {
         target = Int.random(in: 1...100)
     }
-    
-    
-//um objeto que está em conformidade com o Viewprotocolo, mas não queremos dizer o q
+
+    // object conforming to the viewprotocol, but we don't want to say what
     var body: some View {
         
         ZStack{
@@ -70,7 +62,7 @@ struct ContentView: View {
                 }
                 
                 Button("Acertei?", role: .cancel) {
-                    if wonorLost() {
+                    if wonOrLost() {
                         alertText = "Parabéns! Você acertou"
                     }
                     else {
@@ -96,9 +88,3 @@ struct ContentView_Previews: PreviewProvider {
             .padding(.top, 2.0)
     }
 }
-
-
-//1-) calcular a pontuação do usuário : (target - sliderNumber) - número positivo
-//2-) criar uma variável chamada points para  armazenar os pontos do usuário
-//3-) Assim que o usuário clicar em acertei, colocar um novo número randômico para ele tentar acertar
-//4-) mostrar a diferença dos pontos tem um texto na tela
